@@ -6,8 +6,8 @@ import scala.io.{Codec, Source}
 import scala.util._
 
 /**
-  * Created by scalaprof on 9/13/16.
-  */
+ * Created by scalaprof on 9/13/16.
+ */
 class IngestSpec extends AnyFlatSpec with Matchers {
 
   behavior of "ingest"
@@ -21,11 +21,8 @@ class IngestSpec extends AnyFlatSpec with Matchers {
     val ingester = new Ingest[Int]()
     val xys = ingester(source).toSeq
     // check that xys has exactly one element, consisting of Success(42) -- 10 points
-    // TO BE IMPLEMENTED 
-
-
-    // STUB
-    // END
+    xys.length shouldBe 1
+    xys(0) shouldBe Success(42)
   }
 
   it should "work for movie database" in {
