@@ -1,7 +1,9 @@
 package edu.neu.coe.csye7200.prime
 
-import com.typesafe.scalalogging.Logger
-import edu.neu.coe.csye7200.prime.Prime.{logger, primes}
+//import com.typesafe.scalalogging.Logger
+import edu.neu.coe.csye7200.prime.Prime.{primes}
+
+import java.lang.System.Logger
 
 case class Prime(x: BigInt, var valid: Option[Boolean]) {
 
@@ -19,8 +21,8 @@ case class Prime(x: BigInt, var valid: Option[Boolean]) {
 
   override def toString: String = s"""$x ${
     valid match {
-      case Some(true) => "";
-      case Some(false) => "composite";
+      case Some(true) => ""
+      case Some(false) => "composite"
       case _ => "?"
     }
   }"""
@@ -36,7 +38,7 @@ case class Prime(x: BigInt, var valid: Option[Boolean]) {
     val isPrime = x == BigInt(2) || x == BigInt(3) || !composite
     valid match {
       case None =>
-        logger.whenDebugEnabled(if (isPrime) logger.debug(s"$x is prime"))
+        // Removed logging
         valid = Some(isPrime)
       case _ =>
     }
@@ -46,7 +48,7 @@ case class Prime(x: BigInt, var valid: Option[Boolean]) {
 
 object Prime {
 
-  val logger: Logger = com.typesafe.scalalogging.Logger(classOf[Prime])
+  // Removed logger
 
   def apply(x: BigInt): Prime = new Prime(x, None)
 
