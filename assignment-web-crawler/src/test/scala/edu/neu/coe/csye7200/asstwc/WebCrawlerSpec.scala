@@ -13,8 +13,8 @@ import scala.util._
 import scala.util.control.NonFatal
 
 /**
-  * @author scalaprof
-  */
+ * @author scalaprof
+ */
 class WebCrawlerSpec extends AnyFlatSpec with should.Matchers with Futures with ScalaFutures with TryValues with Inside {
 
     import scala.concurrent.ExecutionContext.Implicits.global
@@ -56,7 +56,7 @@ class WebCrawlerSpec extends AnyFlatSpec with should.Matchers with Futures with 
         }
         val usesf: Future[Seq[URL]] = MonadOps.flatten(usesfy)
         whenReady(usesf, timeout(Span(12, Seconds))) { us =>
-            us.size - 33 >= 0 shouldBe true
+            us.size shouldBe 33
         }
     }
 
@@ -90,7 +90,6 @@ class WebCrawlerSpec extends AnyFlatSpec with should.Matchers with Futures with 
 
     behavior of "crawl(Seq[URL])"
 
-    // TODO Move this into a functional spec
     it should s"succeed for $goodURL, max 4" taggedAs Slow in {
         val max = 4
         val expected = 25
@@ -98,7 +97,7 @@ class WebCrawlerSpec extends AnyFlatSpec with should.Matchers with Futures with 
         val uys = for (arg <- args) yield Try(new URL(arg))
         val usft = for {us <- MonadOps.sequence(uys)} yield WebCrawler(max).crawl(us)
         val usf = MonadOps.flatten(usft)
-        whenReady(usf, timeout(Span(30, Seconds))) { s => Assertions.assert(s.length == expected) }
+        whenReady(usf, timeout(Span(20, Seconds))) { s => Assertions.assert(s.length == expected) }
     }
 
     behavior of "Unstring"
